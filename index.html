@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ГУО "Средняя школа №2 г. Витебска имени Ф.Т. Блохина"</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --soft-blue: #f0f4f8;
+            --soft-gold: #d4af37;
+            --text-main: #2d3436;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fafafa;
+            color: var(--text-main);
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-gradient {
+            background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .card-soft {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease;
+        }
+        .card-soft:hover {
+            transform: translateY(-5px);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Навигация -->
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">2</div>
+                <span class="font-semibold text-sm leading-tight hidden sm:block">СШ №2 г. Витебска<br>им. Ф.Т. Блохина</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium uppercase tracking-wider">
+                <a href="#about" class="hover:text-blue-500 transition">О школе</a>
+                <a href="#history" class="hover:text-blue-500 transition">История</a>
+                <a href="#teachers" class="hover:text-blue-500 transition">Учителя</a>
+                <a href="#students" class="hover:text-blue-500 transition">Ученики</a>
+                <a href="#contacts" class="hover:text-blue-500 transition">Контакты</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Главный экран -->
+    <section class="h-screen flex items-center justify-center hero-gradient px-6">
+        <div class="text-center max-w-4xl">
+            <span class="text-blue-600 font-semibold tracking-widest uppercase text-sm mb-4 block">Добро пожаловать</span>
+            <h1 class="text-4xl md:text-6xl mb-6 text-slate-800">Средняя школа №2 <br>имени <span class="text-blue-700">Ф.Т. Блохина</span></h1>
+            <p class="text-lg text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+                Учреждение образования с богатой историей, воспитывающее патриотов и созидателей будущего.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#history" class="bg-blue-600 text-white px-8 py-4 rounded-full shadow-lg hover:bg-blue-700 transition">Узнать историю</a>
+                <a href="http://sch2.vitebsk.by" target="_blank" class="bg-white border border-gray-200 text-gray-700 px-8 py-4 rounded-full hover:bg-gray-50 transition">Официальный сайт</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- О школе -->
+    <section id="about" class="py-24 px-6 bg-white">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <img src="https://images.unsplash.com/photo-1544654803-b69140b285a1?q=80&w=2070&auto=format&fit=crop" alt="История школы" class="rounded-3xl shadow-2xl">
+            </div>
+            <div>
+                <h2 class="text-3xl mb-6 text-slate-800">Честь и Память</h2>
+                <p class="text-gray-600 mb-6 leading-relaxed text-sm">
+                    Школа с гордостью носит имя Героя Советского Союза <strong>Фёдора Тимофеевича Блохина</strong>. Его подвиг по спасению моста в Витебске — пример мужества для наших учеников.
+                </p>
+                <div class="bg-blue-50 p-6 rounded-2xl border-l-4 border-blue-500">
+                    <p class="italic text-blue-900 text-sm">"Патриотическое воспитание и сохранение истории — наши приоритеты."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Учителя -->
+    <section id="teachers" class="py-20 px-6 bg-slate-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl mb-2 text-slate-800">Педагогический состав</h2>
+                    <p class="text-gray-500 text-sm">Те, кто ведут нас к знаниям</p>
+                </div>
+                <button onclick="openModal('teacher')" class="bg-blue-600 text-white px-5 py-2 rounded-xl hover:bg-blue-700 transition text-xs font-semibold">+ Добавить</button>
+            </div>
+            <div id="teachers-list" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Контент -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Ученики -->
+    <section id="students" class="py-20 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl mb-2 text-slate-800">Наши учащиеся</h2>
+                    <p class="text-gray-500 text-sm">Гордость и будущее нашей школы</p>
+                </div>
+                <button onclick="openModal('student')" class="bg-indigo-600 text-white px-5 py-2 rounded-xl hover:bg-indigo-700 transition text-xs font-semibold">+ Добавить</button>
+            </div>
+            <div id="students-list" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Контент -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer id="contacts" class="bg-slate-900 text-white py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <h3 class="text-lg mb-2">СШ №2 г. Витебска</h3>
+                <p class="text-slate-400 text-xs">ул. Хоружей, 12 | sch2@vitebsk.by</p>
+            </div>
+            <div class="text-slate-500 text-[10px] uppercase tracking-widest">
+                Имени Ф.Т. Блохина © 2024
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальное окно -->
+    <div id="addModal" class="modal">
+        <div class="bg-white p-8 rounded-3xl w-full max-w-sm mx-4 relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">✕</button>
+            <h3 id="modalTitle" class="text-xl mb-6 font-semibold">Добавить</h3>
+            <form id="addForm" class="space-y-4">
+                <input type="hidden" id="targetType">
+                <div>
+                    <label class="block text-[10px] font-bold uppercase text-gray-400 mb-1">ФИО</label>
+                    <input type="text" id="itemName" required class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm" placeholder="Имя">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold uppercase text-gray-400 mb-1">Должность / Класс</label>
+                    <input type="text" id="itemRole" required class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm" placeholder="Напр: 10 'А'">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold uppercase text-gray-400 mb-1">Имя файла в папке img</label>
+                    <input type="text" id="itemPhoto" class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm" placeholder="photo.jpg">
+                    <p class="text-[9px] text-gray-400 mt-1">Файл должен быть в папке img/</p>
+                </div>
+                <button type="submit" class="w-full bg-slate-800 text-white py-3 rounded-lg font-bold hover:bg-black transition text-sm">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Данные по умолчанию (используют папку img/)
+        let teachers = [
+            { name: "Анна Петрова", role: "Директор", photo: "director.jpg" }
+        ];
+
+        let students = [
+            { name: "Мария Волкова", role: "11 'А' класс", photo: "student1.jpg" }
+        ];
+
+        function renderItems() {
+            const teachersList = document.getElementById('teachers-list');
+            const studentsList = document.getElementById('students-list');
+
+            teachersList.innerHTML = teachers.map(t => createCard(t)).join('');
+            studentsList.innerHTML = students.map(s => createCard(s)).join('');
+        }
+
+        function createCard(item) {
+            // Если введена ссылка http - используем ее, иначе ищем в папке img/
+            let photoPath = item.photo;
+            if (photoPath && !photoPath.startsWith('http')) {
+                photoPath = 'img/' + photoPath;
+            }
+            // Заглушка, если фото не указано вовсе
+            const finalSrc = photoPath || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=random`;
+
+            return `
+                <div class="card-soft p-6 flex flex-col items-center text-center">
+                    <div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden mb-4 border-2 border-slate-100">
+                        <img src="${finalSrc}" alt="${item.name}" 
+                             onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=ccc'"
+                             class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="font-bold text-sm md:text-base">${item.name}</h4>
+                    <p class="text-gray-400 text-xs">${item.role}</p>
+                </div>
+            `;
+        }
+
+        function openModal(type) {
+            document.getElementById('addModal').style.display = 'flex';
+            document.getElementById('targetType').value = type;
+            document.getElementById('modalTitle').innerText = type === 'teacher' ? 'Новый Учитель' : 'Новый Ученик';
+        }
+
+        function closeModal() {
+            document.getElementById('addModal').style.display = 'none';
+            document.getElementById('addForm').reset();
+        }
+
+        document.getElementById('addForm').onsubmit = function(e) {
+            e.preventDefault();
+            const type = document.getElementById('targetType').value;
+            const newItem = {
+                name: document.getElementById('itemName').value,
+                role: document.getElementById('itemRole').value,
+                photo: document.getElementById('itemPhoto').value
+            };
+
+            if (type === 'teacher') teachers.push(newItem);
+            else students.push(newItem);
+
+            renderItems();
+            closeModal();
+        };
+
+        window.onclick = (e) => { if(e.target == document.getElementById('addModal')) closeModal(); };
+        window.onload = renderItems;
+    </script>
+</body>
+</html>
